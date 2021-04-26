@@ -7,6 +7,7 @@ using namespace std;
 
 bool solution(vector<string> phone_book) 
 {
+    // 예외 처리 필수!
     if(phone_book.size() <= 1)
         return true;
 
