@@ -21,7 +21,6 @@ namespace
         return ret;
     }
 
-
     enum ActionType
     {
         NONE = 0,
