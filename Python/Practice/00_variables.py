@@ -80,6 +80,10 @@ print("나는 엄마에게 말했다. '더 이상 카레는 먹기 싫어요!'")
 print('나는 엄마에게 말했다. "더 이상 \'카레\'는 먹기 싫어요!"')
 print("나는 엄마에게 말했다. \"더 이상 '카레'는 먹기 싫어요!\"")
 
+'''
+변수, id, id 함수
+'''
+
 # [10] : id() 출력 값은?
 # 객체의 고유 메모리 주소 값을 반환
 
@@ -103,6 +107,10 @@ print(c[0], '-->', id(c[0]))
 print(c[1], '-->', id(c[1]))
 print(c[2], '-->', id(c[2]))
 
+'''
+is, is 연산자, 연산자
+'''
+
 # [11] : is 연산자를 이용한 출력 결과는?
 a = [1, 2, 3, 4, 5]
 b = a
@@ -113,6 +121,9 @@ print('a is b =', a is b)	# True
 print('a is c =', a is c)	# False
 print('b is c =', b is c)	# False
 
+'''
+is, ==, 연산자
+'''
 
 # [12] : ==연산자를 이용한 출력 결과
 # ==는 값을 비교
@@ -120,3 +131,42 @@ print('a == b =', a == b)	# True
 print('b == c =', a == b)	# True
 print('a == c =', a == b)	# True
 print('{0:=^10}'.format('hi'))
+
+'''
+is 연산자, 결과, print
+'''
+
+# [13] :  is, ==연산자의 결과로 출력되는 값을 예상
+# NOTE: 상수는 특정 메모리에 저장됩니다.
+
+# 숫자
+a = 101
+b = 100 + 1
+
+print('[13-1] a is b = ', a is b)	# False -> True
+print('[13-2] a == b = ', a == b)	# True
+
+# 문자열
+c = 'korea'
+d = 'korea'
+
+print('[13-3] c is d', c is d)	# True -> 
+print('[13-4] c == d', c is d)	# True
+
+# 리스트
+e = [ 1, 2, 3, 4, 5]
+f = [ 1, 2, 3, 4, 5]
+print('[13-3] e is f', e is f)	# False
+print('[13-4] e == f', e == f)	# True
+
+# 메서드 반환 값도 같으면 주소 값이 동일
+def temp():
+	ret = 0
+	for x in range(102):
+		ret = ret + 1
+	return ret
+
+g = 102
+h = temp()
+
+print( g is h,g ==  h)

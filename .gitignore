@@ -1,1 +1,2 @@
-*.exe
+# 실행파일
+C_Plus_Plus/*.exe
