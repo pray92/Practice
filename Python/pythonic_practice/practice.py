@@ -74,3 +74,82 @@ if __name__ == '__main__':
 	sounds = ['meow', 'woof', 'roar']
 	print(dict(zip(animals, sounds)))
 
+# [8] : mylist의 i번째 원소와 i+1번째 원소의 차를 담은 일차원 리스트에 차례로 담아 리턴
+# note: zip 함수에 서로 길이가 다른 list가 인자로 들어오는 경우, '길이가 짧은' 쪽 까지만 이터레이션이 이뤄짐
+# keyword : zip
+def solution(mylist : list):
+    return [abs(x - y) for x, y in zip(mylist, mylist[1:])]
+
+if __name__ == '__main__':
+	print(solution([83, 48, 13, 4, 71, 11]))
+
+# [9] : 이 리스트를 정수형 리스트로 바꾼 값을 리턴
+# keyword : map(해답에선 map 활용)
+def solution(mylist):
+    return [int(x) for x in mylist]
+	
+if __name__ == '__main__':
+	print(solution(['1', '100', '33']))
+
+# [10] : 원소를 모두 이어붙인 문자열을 리턴
+# keyword : {구분자}.join(iterable) -> i1{구분자}i2{구분자}...
+def solution(mylist : list):
+	return ''.join(mylist)
+	
+if __name__ == '__main__':
+	print(solution(['1', '100', '33']))
+
+# [11] : 별(*) 문자를 이용해 높이가 n인 삼각형을 출력
+# keyword : join, iterable in list
+if __name__ == '__main__':
+	n = 3# int(input().strip())
+	print('\n'.join(['*' * x for x in range(1, n + 1)]))
+
+# [11-1] : 곱집합(Cartesizan product)
+# note : 곱집합을 제공하는 모듈에 대한 예시
+# keyword : itertool.product()
+import itertools
+
+if __name__ == '__main__':
+	iterable1 = 'ABCD'
+	iterable2 = '12345'
+	iterable3 = 'xyz'
+
+	print(list(itertools.product(iterable1, iterable2, iterable3)))
+
+# [12] : mylist를 일차원 리스트로 만들어 리턴
+def solution(my_list):
+	# 방법 1 - sum 함수
+	answer = sum(my_list, [])
+
+	# 방법 2 - itertools.chain
+	import itertools
+	list(itertools.chain.from_iterable(my_list))
+
+	# 방법 3 - itertools와 unpacking
+	import itertools
+	list(itertools.chain(*my_list))
+
+	# 방법 4 - list comprehension 이용
+	[element for array in my_list for element in array]
+
+	# 방법 5 - reduce 함수 이용 1
+	from functools import reduce
+	list(reduce(lambda x, y: x+y, my_list))
+
+	# 방법 6 - reduce 함수 이용 2
+	from functools import reduce
+	import operator
+	list(reduce(operator.add, my_list))
+	
+	# 방법 7 - numpy 라이브러리의 flatten 이용(제한적, 각 원소의 길이가 동일해야 함)
+	# import numpy as np
+	# np.array(my_list, dtype = np.dtype).flatten().tolist()
+
+	return answer
+
+
+if __name__ == '__main__':
+	print(solution([[1], [2]]))
+	print(solution([['A', 'B'], ['X', 'Y'], ['1']]))
+	
