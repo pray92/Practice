@@ -165,13 +165,37 @@ if __name__ == '__main__':
 	print(solution([1, 2, 3]))
 
 # [14] : 가장 많이 등장하는 알파벳만을 사전 순으로 출력
+# keyword : collections.Counter
 import collections
 
 if __name__ == '__main__':
-	my_str = input().strip()
+	my_str = 'dhdhssfadhhsdfd' # input().strip()
 	counter = collections.Counter(my_str)
 	max_count = max(counter.values())
 
 	answer = list(filter(lambda x : counter[x] == max_count, counter))
-	print(''.join(answer))
-	# dfdefdgf
+	print(''.join(sorted(answer)))
+
+# [15] : 리스트의 원소 중 짝수인 값만을 제곱해 담은 새 리스트를 리턴
+# keyword : List Comprehension
+def solution(mylist):
+	return [x ** 2 for x in mylist if x % 2 == 0]
+
+if __name__ == '__main__':
+	print(solution([3, 2, 6, 7]))
+
+# [16] : 5개의 자연수가 주어졌을 때, 숫자를 차례로 곱해 나온수가 
+# 제곱수가 되면 found 아니면 not found 출력
+# keyword : flag(다른 언어와 달리 flag 지정을 안해도 됨)
+import math
+
+if __name__ == '__main__':
+	numbers = [int(input()) for _ in range(5)]
+	multplied = 1
+	for number in numbers:
+		multplied *= number
+		if math.sqrt(multplied) == int(math.sqrt(multplied))
+			print('found')
+			break
+	else:
+		print('not found')
