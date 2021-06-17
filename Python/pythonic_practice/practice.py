@@ -153,3 +153,25 @@ if __name__ == '__main__':
 	print(solution([[1], [2]]))
 	print(solution([['A', 'B'], ['X', 'Y'], ['1']]))
 	
+
+# [13] : 모든 순열을 사전순으로 리턴
+# keyword : itertools.permutations
+import itertools
+
+def solution(mylist):
+    return sorted(list(itertools.permutations(mylist)))
+
+if __name__ == '__main__':
+	print(solution([1, 2, 3]))
+
+# [14] : 가장 많이 등장하는 알파벳만을 사전 순으로 출력
+import collections
+
+if __name__ == '__main__':
+	my_str = input().strip()
+	counter = collections.Counter(my_str)
+	max_count = max(counter.values())
+
+	answer = list(filter(lambda x : counter[x] == max_count, counter))
+	print(''.join(answer))
+	# dfdefdgf
