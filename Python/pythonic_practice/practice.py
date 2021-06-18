@@ -38,7 +38,7 @@ if __name__ == '__main__':
 import string
 
 if __name__ == '__main__':
-	num = 1# int(input().strip())
+	num = 1 # int(input().strip())
 	if num <= 0:
 		print(string.ascii_lowercase)
 	else:
@@ -186,16 +186,52 @@ if __name__ == '__main__':
 
 # [16] : 5개의 자연수가 주어졌을 때, 숫자를 차례로 곱해 나온수가 
 # 제곱수가 되면 found 아니면 not found 출력
-# keyword : flag(다른 언어와 달리 flag 지정을 안해도 됨)
+# keyword : for-else문 -> flag(다른 언어와 달리 flag 지정을 안해도 됨)
 import math
 
 if __name__ == '__main__':
-	numbers = [int(input()) for _ in range(5)]
+	numbers = [2, 4, 1, 5, 2]#[int(input()) for _ in range(5)]
 	multplied = 1
 	for number in numbers:
 		multplied *= number
-		if math.sqrt(multplied) == int(math.sqrt(multplied))
+		if math.sqrt(multplied) == int(math.sqrt(multplied)):
 			print('found')
 			break
 	else:
 		print('not found')
+
+# [17] : swap
+if __name__ == '__main__':
+	a = 3
+	b = 'abc'
+	print('{:=^13}'.format('Before'))
+	print('a, b :', a, b)
+	a, b = b, a
+	print('{:=^13}'.format('After'))
+	print('a, b :', a, b)
+
+# [18] : 이진 탐색
+# keyword : bisect.bisect(list, num_to_find)
+import bisect
+
+if __name__ == '__main__':
+	mylist = [1, 3, 4, 6, 8, 12, 224, 344]
+	print(bisect.bisect(mylist, 8))
+	
+# [19] : 클래스 인스턴스 feat. class의 자동 string cast
+# keyword : __str__(self)
+class Coord(object):
+	def __init__(self, x, y):
+		self.x, self.y = x, y
+	
+	def __str__(self):
+		return '({}, {})'.format(self.x, self.y) 
+
+if __name__ == '__main__':
+	point = Coord(1, 2)
+	print(point)
+
+# [20] : 가장 큰수 inf
+# keyword : {float}({'inf' | "-inf"})
+print("float('inf'), float('-inf') :", float('inf'), float('-inf'))
+# print("int('inf'), int('-inf') :", int('inf'), int('-inf')) # invalid syntax!
