@@ -6,9 +6,6 @@ def solution(n):
 
 	return int(answer, 3)
 
-
-
-
 if __name__ is '__main__':
 	print(solution(45))
 	print(solution(125))
