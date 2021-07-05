@@ -9,14 +9,14 @@ long long solution(int n, vector<int> times)
 {
     sort(times.begin(), times.end());
 
-    long long answer = 0;
     long long left = 1;                 // 최소
     long long right = times.back() * n; // 최대
+    long long answer = right;
     long long mid;
     while(left <= right)
     {
         mid = (left + right) / 2;
-        
+
         long long count = 0;
         for (int time : times)
             count += mid / time;
