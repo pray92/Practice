@@ -17,7 +17,10 @@ def solution(scoville, K):
 		answer += 1
 
 		heapq.heappush(filtered_scoville, mixed)
-	
+
+		if filtered_scoville[0] >= K:
+			return answer
+				
 	last_food = filtered_scoville[0]
 	if last_food >= K:
 		return answer
