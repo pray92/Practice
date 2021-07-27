@@ -1,26 +1,35 @@
 
-def min_distance(rocks):
-	ret = rocks[0] # 0
-	for i in range(0, len(rocks) - 1):
-		if ret > (rocks[i + 1] - rocks[i]):
-			ret = rocks[i + 1] - rocks[i]
-	return ret
+def check_valid(rocks, n, k):
+	distances = []
+	for i in range(1, len(rocks)):
+		distances.append(rocks[i] - rocks[i - 1])
+	
+	cnt = 0
+	for i in range(1, len(distances)):
+		if distances[i - 1] < k:
+			distances[i] += distances[i - 1]
+			distances[i - 1] = 0
+			cnt += 1
+	if distances[-1] < k:
+		cnt += 1
+	return cnt <= n
+
 
 def solution(distance, rocks, n):
 	rocks.sort()
 	rocks.insert(0, 0)
 	rocks.append(distance)
-	min_distance(rocks)
 
 	answer = 0
 
-	low, mid, high = 1, 0, len(rocks) - 1
-	while n > 0 and low < high:
-		tmp = []
+	low, mid, high = 1, 0, distance
+	while low < high:
 		mid = (low + high) // 2
-		tmp = rocks
-		tmp.remove(rocks[mid])
-
+		if check_valid(rocks, n, mid):
+			answer = mid
+			low = mid + 1
+		else:
+			high = mid
 
 	return answer
 
