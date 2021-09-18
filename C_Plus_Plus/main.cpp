@@ -1,155 +1,63 @@
 #include <iostream>
-#include <string>
-#include <vector>
-using namespace std;
-
-namespace
-{
-    int GetDivisorCount(int value)
-    {
-        int ret = 0;
-        for(int n = 1; n <= value; ++n)
-        {
-            if(value % n == 0)
-                ++ret;
-        }
-        
-        return ret;
-    }
-}
-
-int solution(int left, int right) 
-{
-    int answer = 0;
-    
-    for(int num = left; num <= right ; ++num)
-    {
-        int nCnt = GetDivisorCount(num);
-        if (nCnt % 2 == 0)
-            answer += num;
-        else 
-            answer -= num;
-
-    }        
-
-    
-    return answer;
-}
-
-#include <cmath>
-
-using namespace std;
-
-namespace
-{
-    long long GetResult(long long number)
-    {
-        long long ret = 0;
-        if(number % 4 < 3)
-        {
-            ret = number + 1;
-        }
-        else
-        {
-            int offsetExp = 0;
-            while((long long)pow(2, offsetExp) < number) 
-                ++offsetExp;
-            
-            int nOffsetExp2 = offsetExp;
-
-            long long tmpNumber = number;
-            for(int nOffset = 0; nOffset <= offsetExp; ++nOffset)
-            {
-                if(tmpNumber % 2 == 0)
-                {
-                    nOffsetExp2  = nOffset;
-                    break;
-                }
-
-                tmpNumber /= 2;
-            }
-
-            cout << "offset : " << nOffsetExp2 << endl;
-            ret = number + (long long)pow(2, nOffsetExp2) -  (long long)pow(2, nOffsetExp2 - 1);
-        }
-        return ret;
-    }
-}
-
-vector<long long> solution(vector<long long> numbers) 
-{
-    vector<long long> answer;
-
-    for (const long long& number : numbers)
-    {
-        answer.push_back(GetResult(number));
-    }
-
-    return answer;
-}
-
-
-#include <map>
-
-using namespace std;
-
-namespace
-{
-    map<int, vector<int>> TreeMap;
-    map<int, int> ParentMap;
-    vector<int> Nodes;
-
-    void GetSum(long long& ret, const int curNode)
-    {
-        if(TreeMap.end() == TreeMap.find(curNode))
-            return;
-        
-        for(const int& childNode : TreeMap[curNode])
-        {
-            ret += Nodes[childNode];
-            GetSum(ret, childNode);
-        }
-    }
-}
-
-vector<long long> solution(vector<int> values, vector<vector<int>> edges, vector<vector<int>> queries) 
-{
-    vector<long long> answer;
-
-    Nodes = {0, }; Nodes.insert(Nodes.end(), values.begin(), values.end());
-
-    for(const vector<int>& edge : edges)
-    {
-        TreeMap[edge[0]].push_back(edge[1]);
-        ParentMap[edge[1]] = edge[0];
-    }
-
-    for(const vector<int>& query : queries)
-    {
-        const int u = query[0];
-        const int w = query[1];
-        if(w == -1)
-        {
-            long long ret = Nodes[u];
-            GetSum(ret, u);
-            answer.push_back(ret);
-        }
-        else
-        {
-            for(int nCur = u; ParentMap.end() != ParentMap.find(nCur); nCur = ParentMap[nCur])
-            {
-                Nodes[nCur] = ParentMap[nCur];
-            }
-            Nodes[1] = w;
-        }
-    }
-
-    return answer;
-}
+ using namespace std; 
+ class Heap { 
+     public: int* nodes; int size; int capacity; 
+     public: 
+     Heap(int defaultCapacity) { this->capacity = defaultCapacity; this->size = 0; this->nodes = new int[this->capacity]; } 
+     ~Heap() { delete this->nodes; } 
+     void add(int data) { // 예외 발생( 크기 재할당을 해주어도 된다 ) 
+        if (this->size >= this->capacity) 
+        throw this->size; 
+        // 배열로 구현 시 인덱스는 1부터 시작 
+        this->nodes[++this->size] = data; 
+        // 순위 조정 
+        int i = this->size; 
+        while (i > 1 && this->nodes[i] < this->nodes[i / 2]) { 
+            swap(i, i / 2); i /= 2; 
+        } 
+    } 
+    int pop() { 
+        // 예외 발생 
+        if (this->size == 0) 
+            throw this->size; 
+        // 첫번째 원소 반환 후 마지막 원소를 첫번째에 대입 
+        int ret = this->nodes[1]; 
+        this->nodes[1] = this->nodes[this->size--]; 
+        // 조정 
+        int i = 1; 
+        while (this->size >= (i * 2 + 1)) { 
+            if (this->nodes[i] > this->nodes[i * 2]) { 
+                swap(i, i * 2); 
+                i *= 2; 
+            } 
+            else if (this->nodes[i] > this->nodes[i * 2 + 1]) { 
+                swap(i, i * 2 + 1); 
+                i = i * 2 + 1; 
+            } 
+            else { 
+                break; 
+            } 
+        } 
+        return ret; 
+    } 
+    void printAll() { 
+        if (this->size == 0) { cout << "This heap has no element." << endl; return; } cout << "size : " << this->size << endl; for (int i = 1; i <= this->size; i++) { cout << this->nodes[i] << " "; } cout << endl; } private: void swap(int idx1, int idx2) { int tmp = this->nodes[idx1]; this->nodes[idx1] = this->nodes[idx2]; this->nodes[idx2] = tmp; } };
 
 int main()
 {
-    auto ret = solution({951, 7, 1});
-    cout << ret[0] << ", " << ret[1] << ", " << ret[2] << endl;
+    Heap h(1024);
+    h.add(15);
+    h.add(3);
+    h.add(2);
+    h.add(7);
+    h.add(9);
+    h.add(12);
+    h.add(16);
+
+    
+    while(h.size > 0)
+        cout << h.pop() << endl;
+    //h.printAll();
+
     return 0;
 }
