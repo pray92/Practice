@@ -4,6 +4,10 @@
 		"vector": "cpp",
 		"ostream": "cpp",
 		"utility": "cpp",
-		"xstring": "cpp"
+		"xstring": "cpp",
+		"iostream": "cpp",
+		"queue": "cpp",
+		"stack": "cpp",
+		"xtree": "cpp"
 	}
 }
