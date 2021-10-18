@@ -105,16 +105,59 @@ private:
 	}
 };
 
+template<typename T>
+class MergeSort
+{
+public:
+	static void sort(vector<T>& arr)
+	{
+		if(arr.size() <= 1)
+			return;
+		
+		mergeSort(arr, 0, arr.size() - 1);
+	}
+
+private:
+	static void mergeSort(vector<T>& arr, int left, int right)
+	{
+		if(left < right)
+		{
+			int mid = (left + right) / 2;
+
+			mergeSort(arr, left, mid);
+			mergeSort(arr, mid + 1, right);
+			merge(arr, left, mid, right);
+		}
+	}
+
+	static void merge(vector<T>& arr, int left, int mid, int right)
+	{
+		vector<T> L(arr.begin() + left, arr.begin() + mid + 1);
+		vector<T> R(arr.begin() + mid + 1, arr.begin() + right + 1);
+
+		int i = 0, j = 0, k = left;
+		int ll = L.size(), rl = R.size();
+		while(i < ll && j < rl)
+		{
+			if(L[i] <= R[j])
+				arr[k] = L[i++];
+			else
+				arr[k] = R[j++];
+			k++;
+		}
+
+		while(i < ll) arr[k++] = L[i++];
+		while(j < rl) arr[k++] = R[j++];
+	}
+};
+
 int main()
 {
 	vector<int> arr = { 8, 4, 11, 2, 3, 4, 9, 1, 6, 5};
-	QuickSort<int>::sort(arr);
+	MergeSort<int>::sort(arr);
 	for(int a : arr)
 		cout << a << ',';
 	cout << endl;
-	
-
-	;
 
 	return 0;
 }
