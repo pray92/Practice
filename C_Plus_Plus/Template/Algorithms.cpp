@@ -1,6 +1,7 @@
 #include <iostream>
 #include <array>
 #include <vector>
+#include <climits>
 
 using namespace std;
 
@@ -151,10 +152,38 @@ private:
 	}
 };
 
+class CountingSort
+{
+public:
+	static void sort(vector<int>& arr)
+	{
+		vector<int> ret(arr.size(), 0);
+		
+		// 배열의 사이즈를 최대 값으로(대략 1000000)
+		vector<int> counting(1000000, 0);
+
+		// 배열 값 증가
+		for(int a : arr)
+			counting[a]++;
+
+		// 누적합으로 만들기
+		for(int i = 1; i < counting.size(); ++i)
+			counting[i] += counting[i - 1];
+		
+		// 역순환하면서 해당 값의 인덱스에 값 넣기
+		for(int i = arr.size() - 1; i >= 0; --i)
+		{
+			ret[counting[arr[i]]] = arr[i];
+			counting[arr[i]]--;
+		}
+		arr = ret;
+	}
+};
+
 int main()
 {
 	vector<int> arr = { 8, 4, 11, 2, 3, 4, 9, 1, 6, 5};
-	MergeSort<int>::sort(arr);
+	CountingSort::sort(arr);
 	for(int a : arr)
 		cout << a << ',';
 	cout << endl;
