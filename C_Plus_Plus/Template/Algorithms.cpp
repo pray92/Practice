@@ -6,6 +6,14 @@
 using namespace std;
 
 template<typename T>
+void print(const vector<T>& arr)
+{
+	for(const T& e : arr)
+		cout << e << ',';
+	cout << endl;
+}
+
+template<typename T>
 class BubbleSort
 {
 public:
@@ -152,6 +160,50 @@ private:
 	}
 };
 
+template<typename T>
+class HeapSort
+{
+public:
+	static void sort(vector<T>& arr)
+	{	
+		int n = arr.size();
+		
+		cout << "Max Heap 초기화" << endl;
+		for(int i = n / 2 - 1; i >= 0; --i)
+			heapify(arr, n, i);
+
+		cout << "추출 연산" << endl;
+		for(int i = n - 1; i > 0; --i)
+		{
+			swap(arr[0], arr[i]);
+			heapify(arr, i, 0);
+		}
+	}
+
+private:
+	static void heapify(vector<T>& arr, int n, int i)
+	{
+		int parent = i;
+		int lChild = i * 2 + 1;
+		int rChild = i * 2 + 2;
+
+		// 좌측
+		if(lChild < n && arr[parent] < arr[lChild])
+			parent = lChild;
+		// 우측
+		if(rChild < n && arr[parent] < arr[rChild])
+			parent = rChild;
+
+		if(i != parent)
+		{
+			swap(arr[parent], arr[i]);
+			print(arr);
+			heapify(arr, n, parent);
+		}
+	}
+
+};
+
 class CountingSort
 {
 public:
@@ -182,11 +234,10 @@ public:
 
 int main()
 {
-	vector<int> arr = { 8, 4, 11, 2, 3, 4, 9, 1, 6, 5};
-	CountingSort::sort(arr);
-	for(int a : arr)
-		cout << a << ',';
-	cout << endl;
+	// vector<int> arr = { 8, 4, 11, 2, 3, 4, 9, 1, 6, 5};
+	vector<int> arr = { 1, 2, 3, 4, 5 };
+	HeapSort<int>::sort(arr);
+	print(arr);
 
 	return 0;
 }
