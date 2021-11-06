@@ -60,15 +60,14 @@ class InsertionSort
 public:
 	static void sort(vector<T>& arr)
 	{
-		for(int i = 1; i < arr.size(); ++i)
-		{
-			T tmp = arr[i];
-			T prev = i - 1;
-			while((prev >= 0) && (arr[prev] > tmp))
-			{
+		for(size_t i = 1; i < arr.size(); ++i){
+			T tmpValue = arr[i];
+			int prev = i - 1;
+			while((prev >= 0) && tmpValue < arr[prev]){
 				arr[prev + 1] = arr[prev];
-				prev--;
+				--prev;
 			}
+			arr[prev + 1] = tmpValue;
 		}
 	}
 };
@@ -204,6 +203,7 @@ private:
 
 };
 
+// Reference : https://soobarkbar.tistory.com/101
 class CountingSort
 {
 public:
@@ -227,11 +227,55 @@ public:
 	}
 };
 
+class RadixSort
+{
+public:
+	static void sort(vector<int>& arr)
+	{
+		int n = sizeof(arr) / sizeof(arr[0]);
+		int nMax = getMax(arr);
+
+		for(int exp = 1; nMax / exp > 0; exp *= 10)
+			countSort(arr, n, exp);
+	}
+	
+private:
+	static int getMax(const vector<int>& arr)
+	{
+		int ret = INT_MIN;
+		for(const int a : arr)
+		{
+			if(a > ret)
+				ret = a;
+		}
+		return ret;
+	}
+
+	static void countSort(vector<int>& arr, int n, int exp)
+	{
+		vector<int> buffer(n);
+		vector<int> counting(getMax(arr) + 1);
+
+		for(int i = 0; i < arr.size(); ++i)
+			++counting[arr[i]];
+
+		for(int i = 1; i < getMax(arr) + 1; ++i)
+			counting[i] += counting[i - 1];
+
+		for(int i = 0; i < n; ++i)
+			buffer[--counting[(arr[i] / exp) % 10]] = arr[i];
+
+		for(int i = 0; i < n; ++i)
+			arr[i] = buffer[i];
+	}
+};
+
 int main()
 {
-	vector<int> arr = { 8, 4, 11, 2, 3, 4, 9, 1, 6, 5};
+	//vector<int> arr = { 8, 4, 11, 2, 3, 4, 9, 1, 6, 5};
 	//vector<int> arr = { 1, 2, 3, 4, 5 };
-	CountingSort::sort(arr);
+	vector<int> arr = { 8, 4, 11, 2, 3, 4, 9, 1, 6, 5, 101, 20222, 392, 13, 42};
+	InsertionSort<int>::sort(arr);
 	print(arr);
 
 	return 0;

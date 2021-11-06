@@ -1,8 +1,6 @@
 package Utils;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * 각종 사용하기 유용한 함수들을 리스트로 담음
@@ -69,101 +67,182 @@ public class Util {
         return Math.abs(a - b) < LIMIT;
     }
 
-    public static void mergeSort(int[] arr){
-
-        mergeSort(arr, 0, arr.length - 1);
+    public static class BubbleSort {
+        public static void sort(int[] arr){
+            for(int i = 0; i < arr.length - 1; ++i){
+                for(int j = 1; j < arr.length - i; ++j){
+                    if(arr[j - 1] > arr[j])
+                        swap(arr, j - 1, j);
+                }
+            }
+        }
     }
 
-    private static void mergeSort(int[] arr, int start, int end){
-        if(start < end){
+    public static class SelectionSort{
+        public static void sort(int[] arr){
+            for(int i = 0; i < arr.length; ++i){
+                int minIndex = i;
+                for(int j = i + 1; j < arr.length; ++j){
+                    if(arr[minIndex] > arr[j])
+                        minIndex = j;
+                }
+                if(minIndex != i)
+                    swap(arr, minIndex, i);
+            }
+        }
+    }
+
+    public static class InsertionSort{
+        public static void sort(int[] arr){
+            for(int i = 1; i < arr.length; ++i){
+                int nTmp = arr[i];
+                int prev = i - 1;
+                while(prev >= 0 && arr[prev] > nTmp){
+                    arr[prev + 1] = arr[prev];
+                    --prev;
+                }
+                arr[prev + 1] = nTmp;
+            }
+        }
+    }
+
+    public static class CountingSort{
+        public static void sort(int[] arr){
+            int[] counting = new int[1000];
+            int[] ret = new int[arr.length];
+
+            for(int i = 0; i < arr.length; ++i)
+                ++counting[arr[i]];
+
+            for(int i = 1; i < counting.length; ++i)
+                counting[i] += counting[i - 1];
+
+            for(int i = arr.length - 1; i >= 0 ; --i){
+                ret[--counting[arr[i]]] = arr[i];
+            }
+
+            /*for(int i = 0; i < arr.length; ++i){
+                ret[--counting[arr[i]]] = arr[i];
+            }*/
+
+            arr = ret;
+        }
+    }
+
+    public static class QuickSort{
+        public static void sort(int[] arr){
+            quickSort(arr, 0, arr.length - 1);
+        }
+
+        private static void quickSort(int[] arr, int start, int end){
+            if(start >= end)
+                return;
+
+            int pivot = start;
+            int left = start + 1;
+            int right = end;
+            while(left <= right){
+                while(left <= end && arr[pivot] >= arr[left]) ++left;
+                while(start < right && arr[pivot] < arr[right]) --right;
+
+                if(left < right)
+                    swap(arr, left, right);
+                else
+                    swap(arr, pivot, right);
+            }
+            quickSort(arr, start, right - 1);
+            quickSort(arr, right + 1, end);
+        }
+    }
+
+    public static class MergeSort{
+        public static void sort(int[] arr){
+            mergeSort(arr, 0, arr.length - 1);
+        }
+
+        private static void mergeSort(int[] arr, int start, int end){
+            if(start >= end)
+                return;
+
             int mid = (start + end) >>> 1;
             mergeSort(arr, start, mid);
             mergeSort(arr, mid + 1, end);
-            merge(arr, start, end);
+            merge(arr, start, mid, end);
         }
-    }
 
-    private static void merge(int[] arr, int start, int end){
-        int[] lArr = Arrays.copyOfRange(arr, start, ((start + end) >>> 1) + 1);
-        int[] rArr = Arrays.copyOfRange(arr, ((start + end) >>> 1) + 1, end + 1);
-        int ll = lArr.length;
-        int rl = rArr.length;
-        int i = 0, j = 0;
-        int k = start;
-        while(i < ll && j < rl){
-            if(lArr[i] <= rArr[j]) arr[k++] = lArr[i++];
-            else arr[k++] = rArr[j++];
+        private static void merge(int[] arr, int start, int mid, int end){
+            int[] lArr = Arrays.copyOfRange(arr, start, mid + 1);
+            int[] rArr = Arrays.copyOfRange(arr, mid + 1, end + 1);
+            int ll = lArr.length;
+            int rl = rArr.length;
+            int i = 0, j = 0;
+            int k = start;
+            while(i < ll && j < rl){
+                if(lArr[i] <= rArr[j]) arr[k++] = lArr[i++];
+                else arr[k++] = rArr[j++];
+            }
+
+            while(i < ll) arr[k++] = lArr[i++];
+            while(j < rl) arr[k++] = rArr[j++];
         }
-        while (i < ll) arr[k++] = lArr[i++];
-        while (j < rl) arr[k++] = rArr[j++];
+
     }
 
+    public static class HeapSort{
+        public static void sort(int[] arr){
+            int n = arr.length;
 
-    public static void quickSort(int[] arr){
-        if(arr.length <= 1)
-            return;
+            for(int i = n / 2 - 1; i >= 0; --i)
+                heapify(arr, n, i);
 
-        quickSort(arr, 0, arr.length - 1);
-    }
-
-    private static void quickSort(int[] arr, int start, int end){
-        if(start >= end)
-            return;
-
-        int pivot = start;
-        int left = start + 1;
-        int right = end;
-        while(left <= right){
-            while(left <= end && arr[pivot] >= arr[left]) ++left;
-            while(right > start && arr[pivot] < arr[right]) --right;
-
-            if(left < right){
-                swap(arr, left, right);
-            }else{
-                swap(arr, pivot, right);
+            for(int i = n - 1; i > 0; --i){
+                swap(arr, i, 0);
+                heapify(arr, i, 0);
             }
         }
-        quickSort(arr, start, right - 1);
-        quickSort(arr, right + 1, end);
-    }
 
-    public static void heapSort(int[] arr){
-        int n = arr.length;
+        private static void heapify(int[] arr, int n, int i){
+            int parent = i;
+            int lChild = i * 2 + 1;
+            int rChild = i * 2 + 2;
 
-        // Heap 재구성
-        for(int i = n / 2 - 1; i >= 0; --i)
-            heapify(arr, n, i);
+            if(lChild < n && arr[parent] < arr[lChild]) parent = lChild;
+            if(rChild < n && arr[parent] < arr[rChild]) parent = rChild;
 
-        // 최대 힙으로 구성
-        for(int i = n - 1; i > 0; --i){
-            int tmp = arr[i];
-            arr[i] = arr[0];
-            arr[0] = tmp;
-
-            heapify(arr, i, 0);
+            if(parent != i){
+                swap(arr, parent, i);
+                heapify(arr, n, parent);
+            }
         }
     }
 
-    private static void heapify(int[] arr, int n, int i){
-        int parent = i;
-        int lChild = 2 * i + 1;
-        int rChild = 2 * i + 2;
+    public static class RadixSort{
+        public static void sort(int[] arr, int maxExp){
+            for(int exp = 0; exp <= maxExp; ++exp)
+                countingSort(arr, (int)Math.pow(10, exp));
+        }
 
-        if(lChild < n && arr[parent] < arr[lChild]) parent = lChild;
-        if(rChild < n && arr[parent] < arr[rChild]) parent = rChild;
+        private static void countingSort(int[] arr, int exp){
+            int[] buffer = new int[arr.length];
+            int[] counting = new int[10];
 
-        if(parent != i){
-            int tmp = arr[i];
-            arr[i] = arr[parent];
-            arr[parent] = tmp;
+            for(int i = 0 ; i < arr.length; ++i)
+                counting[(arr[i] / exp) % 10]++;
 
-            heapify(arr, n, parent);
+            for(int i = 1 ; i < counting.length; ++i)
+                counting[i] += counting[i - 1];
+
+            for(int i = arr.length - 1; i >= 0; --i){
+                buffer[--counting[(arr[i] / exp) % 10]] = arr[i];
+            }
+            for(int i = 0; i < arr.length; ++i)
+                arr[i] = buffer[i];
+            System.out.println(Arrays.toString(arr));
         }
     }
 
     public static void main(String[] args){
         int[] arr = {8, 2, 1, 8, 11, 2, 33, 45};
-        mergeSort(arr);
         System.out.println(Arrays.toString(arr));
     }
 }
