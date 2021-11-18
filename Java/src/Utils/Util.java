@@ -124,8 +124,8 @@ public class Util {
             /*for(int i = 0; i < arr.length; ++i){
                 ret[--counting[arr[i]]] = arr[i];
             }*/
-
-            arr = ret;
+            for(int i = 0; i < arr.length; ++i)
+                arr[i] = ret[i];
         }
     }
 
@@ -150,6 +150,7 @@ public class Util {
                 else
                     swap(arr, pivot, right);
             }
+
             quickSort(arr, start, right - 1);
             quickSort(arr, right + 1, end);
         }
@@ -243,6 +244,7 @@ public class Util {
 
     public static void main(String[] args){
         int[] arr = {8, 2, 1, 8, 11, 2, 33, 45};
+        CountingSort.sort(arr);
         System.out.println(Arrays.toString(arr));
     }
 }
