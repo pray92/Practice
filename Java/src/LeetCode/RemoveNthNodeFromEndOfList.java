@@ -14,7 +14,6 @@ import java.util.List;
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
-/*
 class RemoveNthNodeFromEndOfList {
     public ListNode removeNthFromEnd(ListNode head, int n) {
         List<ListNode> nodes = new ArrayList<>();
@@ -37,4 +36,3 @@ class RemoveNthNodeFromEndOfList {
     }
 }
 
- */

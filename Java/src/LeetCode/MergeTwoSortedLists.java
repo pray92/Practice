@@ -10,7 +10,6 @@ package LeetCode;
  * }
  */
 
-/*
 public class MergeTwoSortedLists {
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         if(null == l1 && null == l2)
@@ -53,4 +52,3 @@ public class MergeTwoSortedLists {
         return node;
     }
 }
- */
