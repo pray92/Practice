@@ -1,5 +1,7 @@
 package Utils;
 
+import LeetCode.ListNode;
+
 import java.util.*;
 
 /**
@@ -11,8 +13,21 @@ import java.util.*;
 public class Util {
     public static void main(String[] args){
         int[] arr = {8, 2, 1, 8, 11, 2, 33, 45};
-        CountingSort.sort(arr);
-        System.out.println(Arrays.toString(arr));
+        /*CountingSort.sort(arr);
+        System.out.println(Arrays.toString(arr));*/
+        BinarySearchTree bst = new BinarySearchTree();
+        {
+            bst.add(12);
+            bst.add(5); bst.add(3); bst.add(1); bst.add(7); bst.add(9);
+            bst.add(15); bst.add(13); bst.add(17); bst.add(19);
+        }
+        bst.print(BinarySearchTree.OrderType.IN_ORDER);
+        bst.delete(15);
+        bst.print(BinarySearchTree.OrderType.IN_ORDER);
+        /*System.out.println("Pre-order");
+        bst.print(BinarySearchTree.OrderType.PRE_ORDER);
+        System.out.println("Post-order");
+        bst.print(BinarySearchTree.OrderType.POST_ORDER);*/
     }
 
     public static void swap(int[] arr, int from, int to){
