@@ -63,7 +63,7 @@ public class Main
 {
     public static void main(String[] args)  throws Exception {
         int[] arr = new int[]{20, 333, 242, 52, 1, 233, 24, 4, 9, 67, 8, 4, 5};
-        RadixSort.sort(arr, 2 /* 100자리수까지 정렬 */);
+        RadixSort.sort(arr);
         System.out.println(Arrays.toString(arr));
     }
 

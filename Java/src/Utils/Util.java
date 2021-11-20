@@ -9,6 +9,11 @@ import java.util.*;
  * 3. 실수 값 Equal
  */
 public class Util {
+    public static void main(String[] args){
+        int[] arr = {8, 2, 1, 8, 11, 2, 33, 45};
+        CountingSort.sort(arr);
+        System.out.println(Arrays.toString(arr));
+    }
 
     public static void swap(int[] arr, int from, int to){
         int tmp = arr[from];
@@ -92,6 +97,15 @@ public class Util {
         }
     }
 
+    public static int getMax(int[] arr){
+        int ret = Integer.MIN_VALUE;
+        for(var a : arr){
+            if(a > ret)
+                ret = a;
+        }
+        return ret;
+    }
+
     public static class InsertionSort{
         public static void sort(int[] arr){
             for(int i = 1; i < arr.length; ++i){
@@ -108,7 +122,7 @@ public class Util {
 
     public static class CountingSort{
         public static void sort(int[] arr){
-            int[] counting = new int[1000];
+            int[] counting = new int[getMax(arr) + 1];
             int[] ret = new int[arr.length];
 
             for(int i = 0; i < arr.length; ++i)
@@ -218,9 +232,11 @@ public class Util {
     }
 
     public static class RadixSort{
-        public static void sort(int[] arr, int maxExp){
-            for(int exp = 0; exp <= maxExp; ++exp)
-                countingSort(arr, (int)Math.pow(10, exp));
+        public static void sort(int[] arr){
+            int maxValue = getMax(arr);
+
+            for(int exp = 1; maxValue / exp > 0; exp *= 10)
+                countingSort(arr, exp);
         }
 
         private static void countingSort(int[] arr, int exp){
@@ -240,11 +256,5 @@ public class Util {
                 arr[i] = buffer[i];
             System.out.println(Arrays.toString(arr));
         }
-    }
-
-    public static void main(String[] args){
-        int[] arr = {8, 2, 1, 8, 11, 2, 33, 45};
-        CountingSort.sort(arr);
-        System.out.println(Arrays.toString(arr));
     }
 }
