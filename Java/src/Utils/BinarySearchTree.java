@@ -188,16 +188,20 @@ public class BinarySearchTree {
             if(deleteNode.getLeftNode() != minNode){
                 minNode.setLeftNode(deleteNode.getLeftNode());
             }
-            // 2-2. 기준 노드 우측에 삭제 노드의 우측 노드 배치
+            // 2-2. 기준 노드 우측에 삭제 노드의 '최'우측 노드 배치
             if(deleteNode.getRightNode() != minNode){
-                minNode.setRightNode(deleteNode.getRightNode());
+                var minestNode = minNode;
+                while(null != minestNode.getRightNode())
+                    minestNode = minestNode.getRightNode();
+                minestNode.setRightNode(deleteNode.getRightNode());
+                // 삭제 노드 좌측 노드 삭제
+                deleteNode.getRightNode().setLeftNode(null);
             }
             // 2-3. 기준 노드를 삭제 노드 위치에 배치(삭제 노드의 부모 위치)
             if(null != deleteNode.getParentNode()){
                 var parentNode = deleteNode.getParentNode();
                 if(deleteNode == parentNode.getLeftNode()){
                     parentNode.setLeftNode(minNode);
-
                 }
                 else if(deleteNode == parentNode.getRightNode()){
                     parentNode.setRightNode(minNode);

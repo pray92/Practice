@@ -30,6 +30,9 @@ public class DoubleLinkedList {
 
     public void setLeftNode(DoubleLinkedList leftNode) {
         this.leftNode = leftNode;
+        if(null != this.leftNode) {
+            this.leftNode.setParentNode(this);
+        }
     }
 
     public DoubleLinkedList getRightNode() {
@@ -38,6 +41,9 @@ public class DoubleLinkedList {
 
     public void setRightNode(DoubleLinkedList rightNode) {
         this.rightNode = rightNode;
+        if(null != this.rightNode){
+            this.rightNode.setParentNode(this);
+        }
     }
 
 

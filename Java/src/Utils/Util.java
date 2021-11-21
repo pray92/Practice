@@ -19,10 +19,12 @@ public class Util {
         {
             bst.add(12);
             bst.add(5); bst.add(3); bst.add(1); bst.add(7); bst.add(9);
-            bst.add(15); bst.add(13); bst.add(17); bst.add(19);
+            bst.add(15); bst.add(13); bst.add(14); bst.add(18); bst.add(16); bst.add(17); bst.add(21);bst.add(19);bst.add(23);
         }
         bst.print(BinarySearchTree.OrderType.IN_ORDER);
         bst.delete(15);
+        bst.print(BinarySearchTree.OrderType.IN_ORDER);
+        bst.delete(21);
         bst.print(BinarySearchTree.OrderType.IN_ORDER);
         /*System.out.println("Pre-order");
         bst.print(BinarySearchTree.OrderType.PRE_ORDER);
