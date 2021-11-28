@@ -5,9 +5,8 @@ public class SearchInsertPosition {
         int left = 0, right = nums.length - 1;
         int mid = 0;
         while(left <= right){
-            mid = (left + right ) >>> 1;
-            if(nums[mid] == target){
-            } else if(nums[mid] < target){
+            mid = (left + right) >> 1;
+            if(nums[mid] < target){
                 left = mid + 1;
             } else if(nums[mid] > target){
                 right = mid - 1;
@@ -15,10 +14,8 @@ public class SearchInsertPosition {
                 break;
             }
         }
-
         if(nums[mid] < target)
             ++mid;
-
         return mid;
     }
 
