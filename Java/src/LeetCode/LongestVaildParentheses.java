@@ -4,6 +4,35 @@ import java.util.Stack;
 
 public class LongestVaildParentheses {
     public int longestValidParentheses(String s) {
+        Stack<Character> stack = new Stack<>();
+        int ret = 0, left = 0, right = 0;
+        // Left
+        for(int i = 0; i < s.length(); ++i){
+            char c = s.charAt(i);
+            if(c == '('){
+                left++;
+            } else{
+                right++;
+            }
+            if(left == right)
+                ret = Math.max(ret, left + right);
+        }
+        // Right
+        for(int i = s.length() - 1; i >= 0; --i){
+            char c = s.charAt(i);
+            if(c == '('){
+                left++;
+            } else{
+                right++;
+            }
+            if(left == right)
+                ret = Math.max(ret, left + right);
+        }
+
+        return ret;
+    }
+    /*
+    public int longestValidParentheses(String s) {
         for(int i = 0; i <= s.length() - 2; ++i){
             for(int j = 0; j <= i; ++j){
                 if(isValid(s, j, s.length() - 1 - (i - j))){
@@ -38,7 +67,7 @@ public class LongestVaildParentheses {
 
         return stack.empty();
     }
-
+*/
     public static void main(String[] args){
         var ret = new LongestVaildParentheses().longestValidParentheses(")()())");
         System.out.println(ret);
