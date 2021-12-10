@@ -14,10 +14,14 @@ public class LongestVaildParentheses {
             } else{
                 right++;
             }
-            if(left == right)
+            if(left == right){
                 ret = Math.max(ret, left + right);
+            } else if(right >= left){
+                left = right = 0;
+            }
         }
         // Right
+        left = 0; right = 0;
         for(int i = s.length() - 1; i >= 0; --i){
             char c = s.charAt(i);
             if(c == '('){
@@ -25,8 +29,11 @@ public class LongestVaildParentheses {
             } else{
                 right++;
             }
-            if(left == right)
+            if(left == right){
                 ret = Math.max(ret, left + right);
+            } else if(left >= right){
+                left = right = 0;
+            }
         }
 
         return ret;
