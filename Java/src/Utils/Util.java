@@ -13,9 +13,10 @@ import java.util.*;
 public class Util {
     public static void main(String[] args){
         int[] arr = {8, 2, 1, 8, 11, 2, 33, 45};
+
         /*CountingSort.sort(arr);
-        System.out.println(Arrays.toString(arr));*/
-        BinarySearchTree bst = new BinarySearchTree();
+        System.out.println(Arrays.toString(,arr));*/
+        /*BinarySearchTree bst = new BinarySearchTree();
         {
             bst.add(12);
             bst.add(5); bst.add(3); bst.add(1); bst.add(7); bst.add(9);
@@ -26,7 +27,7 @@ public class Util {
         bst.print(BinarySearchTree.OrderType.IN_ORDER);
         bst.delete(21);
         bst.print(BinarySearchTree.OrderType.IN_ORDER);
-        /*System.out.println("Pre-order");
+        *//*System.out.println("Pre-order");
         bst.print(BinarySearchTree.OrderType.PRE_ORDER);
         System.out.println("Post-order");
         bst.print(BinarySearchTree.OrderType.POST_ORDER);*/
@@ -272,6 +273,62 @@ public class Util {
             for(int i = 0; i < arr.length; ++i)
                 arr[i] = buffer[i];
             System.out.println(Arrays.toString(arr));
+        }
+    }
+
+    public static class StackWithQueue{
+
+        private int flag = 0;
+        private Queue queue0 = new LinkedList();
+        private Queue queue1 = new LinkedList();
+
+        public void push(int value){
+            if(flag == 0){
+                queue1.add(value);
+                while(!queue0.isEmpty()){
+                    queue1.add(queue0.poll());
+                }
+                flag = 1;
+            } else{
+                queue0.add(value);
+                while(!queue1.isEmpty()){
+                    queue0.add(queue1.poll());
+                }
+                flag = 0;
+            }
+        }
+
+        public int pop(){
+            if(0 == flag)
+                return (int)queue0.poll();
+            return (int)queue1.poll();
+        }
+
+        public boolean isEmpty(){
+            return queue0.isEmpty() && queue1.isEmpty();
+        }
+    }
+
+    public static class QueueWithStack{
+
+        private Stack stack0 = new Stack();
+        private Stack stack1 = new Stack();
+
+        public void push(int value){
+            stack0.push(value);
+        }
+
+        public int pop(){
+            if(stack1.isEmpty()){
+                while(!stack0.isEmpty()){
+                    stack1.push(stack0.pop());
+                }
+            }
+            return (int)stack1.pop();
+        }
+
+        public boolean isEmpty(){
+            return stack0.isEmpty() && stack1.isEmpty();
         }
     }
 }
