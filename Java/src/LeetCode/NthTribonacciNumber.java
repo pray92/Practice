@@ -21,7 +21,7 @@ public class NthTribonacciNumber {
 
     public static void main(String[] args)
     {
-        NthTribonacciNumber sol = new NthTribonacciNumber();
+	NthTribonacciNumber sol = new NthTribonacciNumber();
         System.out.println(sol.tribonacci(4));
         System.out.println(sol.tribonacci(25));
     }

@@ -36,12 +36,14 @@ vector<int> solution(int n, vector<string> words)
 
 int main()
 {
-    vector<int> ans = solution(3, {"tank", "kick", "know", "wheel", "land", "dream", "mother", "robot", "tank"});
-    cout << "[" << ans[0] << ", " << ans[1] << "]" << endl;
-    ans = solution(5, {"hello", "observe", "effect", "take", "either", "recognize", "encourage", "ensure", "establish", "hang", "gather", "refer", "reference", "estimate", "executive"});
-    cout << "[" << ans[0] << ", " << ans[1] << "]" << endl;
-    ans = solution(2, {"hello", "one", "even", "never", "now", "world", "draw"});
-    cout << "[" << ans[0] << ", " << ans[1] << "]" << endl;
+    cout << "Hello world" << endl;
+
+    // vector<int> ans = solution(3, {"tank", "kick", "know", "wheel", "land", "dream", "mother", "robot", "tank"});
+    // cout << "[" << ans[0] << ", " << ans[1] << "]" << endl;
+    // ans = solution(5, {"hello", "observe", "effect", "take", "either", "recognize", "encourage", "ensure", "establish", "hang", "gather", "refer", "reference", "estimate", "executive"});
+    // cout << "[" << ans[0] << ", " << ans[1] << "]" << endl;
+    // ans = solution(2, {"hello", "one", "even", "never", "now", "world", "draw"});
+    // cout << "[" << ans[0] << ", " << ans[1] << "]" << endl;
 
 
     return 0;

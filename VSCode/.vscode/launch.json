@@ -12,7 +12,7 @@
             "console": "integratedTerminal"
         },
         {
-            "name": "g++.exe - 활성 파일 빌드 및 디버그",
+            "name": "g++.exe - 활성 파일 빌드 및 디버그(Windows)",
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
@@ -29,7 +29,15 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "g++.exe build active file"
+            "preLaunchTask": "g++.exe build active file(Windows)"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Lldb debug",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "args": [],
+            "cwd": "${workspaceRoot}"
         }
     ]
 }
