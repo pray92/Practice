@@ -1,77 +1,115 @@
 import Utils.Util;
 
+import java.awt.desktop.UserSessionEvent;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.StringJoiner;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import Utils.Util.*;
-
-class Circle implements Cloneable{
-    Point p;
-    double r;
-
-    Circle(Point p, double r){
-        this.p = p;
-        this.r = r;
-    }
-
-    public Circle shallowCopy(){
-        Object obj = null;
-
-        try{
-            obj = super.clone();
-        } catch (CloneNotSupportedException e) { }
-
-        return (Circle)obj;
-    }
-
-    public Circle deepCopy(){
-        Object obj = null;
-
-        try{
-            obj = super.clone();
-        } catch (CloneNotSupportedException e) { }
-
-        Circle c = (Circle)obj;
-        c.p = new Point(this.p.x, this.p.y);
-
-        return c;
-    }
-
-    public String toSTr(){
-        return "[p=" + p + ", r=" + r + "]";
-    }
-}
-
-class Point{
-    int x = 0;
-    int y = 0;
-
-    Point(int x, int y){
-        this.x = x;
-        this.y = y;
-    }
-
-    public String toStr(){
-        return "(" + x + ", " + y + ")";
-    }
-}
 
 public class Main
 {
     public static void main(String[] args)  throws Exception {
         int[] arr = new int[]{20, 333, 242, 52, 1, 233, 24, 4, 9, 67, 8, 4, 5};
-        RadixSort.sort(arr);
-        System.out.println(Arrays.toString(arr));
+        /*arrayListLinkedListTest();*/
+
+	}
+
+    private static void arrayListLinkedListTest(){
+        // 추가할 데이터의 개수를 고려하여 충분히 잡음
+        ArrayList a1 = new ArrayList(2000000);
+        LinkedList l1 = new LinkedList();
+
+        System.out.println("=순차적으로 추가하기=");
+        System.out.println("ArrayList : " + add1(a1));
+        System.out.println("LinkedList : " + add1(l1));
+        System.out.println();
+        System.out.println("=중간에 추가하기=");
+        System.out.println("ArrayList : " + add2(a1));
+        System.out.println("LinkedList : " + add2(l1));
+        System.out.println();
+        System.out.println("=중간에 삭제하기=");
+        System.out.println("ArrayList : " + remove2(a1));
+        System.out.println("LinkedList : " + remove2(l1));
+        System.out.println();
+        System.out.println("=순차적으로 삭제하기=");
+        System.out.println("ArrayList : " + remove1(a1));
+        System.out.println("LinkedList : " + remove1(l1));
+        System.out.println();
     }
 
+    private static long add1(List list){
+        long start = System.currentTimeMillis();
+        for(int i = 0; i < 1000000; ++i) list.add(i+"");
+        long end = System.currentTimeMillis();
+        return end - start;
+    }
 
-    public static void swap(int[] arr, int from, int to){
-        int tmp = arr[from];
-        arr[from] = arr[to];
-        arr[to] = tmp;
+    private static long add2(List list){
+        long start = System.currentTimeMillis();
+        for(int i = 0; i < 10000; ++i) list.add(500, "X");
+        long end = System.currentTimeMillis();
+        return end - start;
+    }
+
+    private static long remove1(List list){
+        long start = System.currentTimeMillis();
+        for(int i = list.size() - 1; i >= 0; --i) list.remove(i);
+        long end = System.currentTimeMillis();
+        return end - start;
+    }
+
+    private static long remove2(List list){
+        long start = System.currentTimeMillis();
+        for(int i = 0; i < 10000; ++i) list.remove(i);
+        long end = System.currentTimeMillis();
+        return end - start;
+    }
+
+    private static void collectionsEx(){
+        List list1 = new ArrayList<>(10);
+        list1.add(new Integer(5));
+        list1.add(new Integer(4));
+        list1.add(new Integer(2));
+        list1.add(new Integer(0));
+        list1.add(new Integer(1));
+        list1.add(new Integer(3));
+
+        ArrayList list2 = new ArrayList(list1.subList(1, 4));
+        print(list1, list2);
+
+        Collections.sort(list1);
+        Collections.sort(list2);
+        print(list1, list2);
+
+        System.out.println("list1.contatinsAll(list2) : " + list1.containsAll(list2));
+
+        list2.add('B');
+        list2.add('C');
+        list2.set(3, "A");
+        print(list1, list2);
+
+        list2.set(3, "AA");
+        print(list1, list2);
+
+        // list1에서 list2와 겹치는 부분을 제외하고 나머지는 삭제
+        System.out.println("list1.retatinAll(list2) : " + list1.retainAll(list2));
+        print(list1, list2);
+
+        // list2에서 list1에 포함된 객체들을 삭제한다.
+        for(int i = list2.size() - 1; i >= 0; --i){
+            if(list1.contains(list2.get(i)))
+                list2.remove(i);
+        }
+        print(list1, list2);
+    }
+
+    private static void print(List list1, List list2){
+        System.out.println("list1 : " + list1);
+        System.out.println("list2 : " + list2);
+        System.out.println();
     }
 
     private static void regularEx2() {
@@ -143,22 +181,5 @@ public class Main
         System.out.printf("hexNum=%o, %d%n", hexNum, hexNum);
         System.out.printf("binNum=%s, %d%n", Integer.toBinaryString(binNum), binNum);
 
-    }
-
-    private static void shallowDeepCopy() {
-        Circle c1 = new Circle(new Point(1, 1), 2.0);
-        Circle c2 = c1.shallowCopy();
-        Circle c3 = c1.deepCopy();
-
-        System.out.println("c1=" + c1);
-        System.out.println("c2=" + c2);
-        System.out.println("c3=" + c3);
-
-        c1.p.x = 9;
-        c1.p.y = 9;
-        System.out.println("= c1의 변경 후 =");
-        System.out.println("c1=" + c1);
-        System.out.println("c2=" + c2);
-        System.out.println("c3=" + c3);
     }
 }
