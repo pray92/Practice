@@ -2,7 +2,6 @@ package Programmers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.PriorityQueue;
 
 // 14:40
 public class MenuRenual {
@@ -82,7 +81,7 @@ public class MenuRenual {
     }
 
     public static void main(String[] args){
-        var ret = new MenuRenual().solution(new String[]{"ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH"}, new int[]{2, 3, 4});
+        new MenuRenual().solution(new String[]{"ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH"}, new int[]{2, 3, 4});
 
     }
 }

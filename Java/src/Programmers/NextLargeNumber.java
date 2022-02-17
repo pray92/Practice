@@ -14,8 +14,8 @@ public class NextLargeNumber {
     }
 
     public static void main(String[] args){
-        var ret = new NextLargeNumber().solution(78);
-        ret = new NextLargeNumber().solution(16);
-        ret = new NextLargeNumber().solution(1);
+        new NextLargeNumber().solution(78);
+        new NextLargeNumber().solution(16);
+        new NextLargeNumber().solution(1);
     }
 }

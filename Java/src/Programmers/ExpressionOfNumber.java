@@ -28,7 +28,7 @@ public class ExpressionOfNumber {
     }
 
     public static void main(String[] args){
-        var ret = new ExpressionOfNumber().solution(15);
+        new ExpressionOfNumber().solution(15);
     }
 
 }

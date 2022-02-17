@@ -39,7 +39,7 @@ public class Fatigue {
     }
 
     public static void main(String[] args){
-        var ret = new Fatigue().solution(2, new int[][]{
+        new Fatigue().solution(2, new int[][]{
             new int[] {1, 2},
             new int[] {2, 3},
         });

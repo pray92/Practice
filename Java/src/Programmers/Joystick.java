@@ -31,6 +31,6 @@ public class Joystick {
     }
 
     public static void main(String[] args){
-        var ret = new Joystick().solution("ZZZZA");
+        new Joystick().solution("ZZZZA");
     }
 }

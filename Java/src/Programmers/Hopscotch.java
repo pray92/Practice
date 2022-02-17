@@ -1,7 +1,5 @@
 package Programmers;
 
-import java.util.Arrays;
-
 public class Hopscotch {
 
     private final int MAX_TILE = 4;
@@ -30,7 +28,7 @@ public class Hopscotch {
     }
 
     public static void main(String[] args){
-        var ret =new Hopscotch().solution(new int[][]
+        new Hopscotch().solution(new int[][]
                 {
                         new int[]{1,2,3,5},
                         new int[]{5,6,7,8},

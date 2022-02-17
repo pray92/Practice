@@ -17,5 +17,6 @@ public class RectangleWithStar {
             }
             System.out.println();
         }
+        sc.close();
     }
 }

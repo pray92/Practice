@@ -1,8 +1,5 @@
 package Programmers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CandidateKey {
     public int solution(String[][] relation) {
         int answer = 0;

@@ -29,18 +29,8 @@ public class FindBiggestSquare {
         return true;
     }
 
-    private boolean isValid(int[][] board, int y1 , int y2, int x1, int x2){
-        for(int y = y1; y < y2; ++y){
-            for(int x = x1; x < x2; ++x){
-                if(board[y][x] == 0)
-                    return false;
-            }
-        }
-        return true;
-    }
-
     public static void main(String[] args){
-        var ret = new FindBiggestSquare().solution(new int[][]{
+        new FindBiggestSquare().solution(new int[][]{
             {0,1,1,1},
             {1,1,1,1},
             {1,1,1,1},

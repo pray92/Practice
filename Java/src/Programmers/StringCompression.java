@@ -15,12 +15,6 @@ public class StringCompression {
     private int compress(String s, int unit){
         StringBuilder sb = new StringBuilder(s);
 
-        int offset = 0;
-        for(int i = 0; i < s.length(); i += offset){
-            String subStr = sb.substring(i, i + offset);
-
-        }
-
         return sb.length();
     }
 }
