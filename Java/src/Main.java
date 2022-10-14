@@ -1,20 +1,13 @@
-import Utils.Util;
 
-import java.awt.desktop.UserSessionEvent;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Array;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import Utils.Util.*;
+
+import javax.swing.Action;
 
 public class Main
 {
     public static void main(String[] args)  throws Exception {
-        int[] arr = new int[]{20, 333, 242, 52, 1, 233, 24, 4, 9, 67, 8, 4, 5};
-        /*arrayListLinkedListTest();*/
-
 	}
 
     private static void arrayListLinkedListTest(){
